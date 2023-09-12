@@ -13,7 +13,7 @@
     <script></script>
 </head>
 <body>
-    <header style="background-image: url('/coding_img.png');">
+    <header style="background-image: url('image/coding_img.png');">
         <nav class="navbar bg-body-tertiary">
             <div class="container-sm">
                 <a class="navbar-brand me-auto text-white">Navbar</a>
@@ -34,11 +34,11 @@
             <p>저는 이러저러한걸 좋아합니다.</p>
         </div>
     </header>
-    <main class="container-sm">
+    <main>
         <!-- About me -->
-        <div class="row">
-            <h2>About me</h2>
-            <div class="col">
+        <div class="container-sm mx-auto row">
+            <h2 class="text-center">About me</h2>
+            <div class="col-sm mx-auto">
                 <div class="d-flex justify-content-start align-items-center">
                     <i class="bi bi-person-fill fs-1 align-middle"></i>
                     <div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm mx-auto">
                 <div class="d-flex justify-content-start align-items-center">
                     <i class="bi bi-calendar-heart-fill fs-1"></i>
                     <div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm mx-auto">
                 <div class="d-flex justify-content-start align-items-center">
                     <i class="bi bi-geo-alt-fill fs-1"></i>
                     <div>
@@ -88,20 +88,194 @@
             </div>
         </div>
         <!-- Skill -->
-        <div>
-            <h2>기술 스텍</h2>
-            <h4>frontend</h4>
-            <h4>backend</h4>
-            <h4>database</h4>
+        <div style="background-color: #FFDC3C;">
+            <div class="container-sm mx-auto row">
+                <h2 class="text-center">기술 스텍</h2>
+                <div class="col-sm-3 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title border-bottom text-center">frontend</h4>
+                            <img src="image/front_end.png" alt="" class="mx-auto" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title border-bottom text-center">backend</h4>
+                            <img src="image/back_end.png" alt="" class="mx-auto" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title border-bottom text-center">database</h4>
+                            <img src="image/database.png" alt="" class="mx-auto" style="max-width: 100%;">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title border-bottom text-center">versionControl</h4>
+                            <img src="image/version_control.png" alt="" class="mx-auto" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Archiving -->
+        <div style="background-color: #282828;">
+            <h2>Archiving</h2>
+            <h4>깃허브 주소</h4>
+            <span>http:// 어쩌고저쩌고</span>
+        </div>
         <!-- Project -->
-        <div>
-            <h2>나의 프로젝트</h2>
-            <p>클론 + 링크 넣기</p>
-            <p>jsp</p>
-            <p>밥뭇나</p>
-            <p>project inside</p>
+        <div style="background-color: #87CEFA;">
+            <div class="container-sm">
+                <h2 class="text-center">나의 프로젝트</h2>
+                <div class="form-control text-center mb-4">
+                    <h4>Clone Project 베스킨라빈스</h4>
+                    <p>2023.03.00</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="image/clone_home.png" alt="" style="max-width: 100%;">
+                        </div>
+                        <div class="col-sm-6">
+                            <p>베스킨라빈스 홈페이지 클론</p>
+                            <hr>
+                            <table class="table table-borderless text-start">
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>주요기능</td>
+                                        <td>모달 리모컨기능</td>
+                                    </tr>
+                                    <tr>
+                                        <td>front_end</td>
+                                        <td>asdgadjksld;fg';lf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>back_end</td>
+                                        <td>asdfasgasdf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>database</td>
+                                        <td>asdfdaqwe</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control text-center mb-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="image/jsp_home.png" alt="" style="max-width: 100%;">
+                        </div>
+                        <div class="col-sm-6">
+                            <p>맛있는 식당과 좋은 경치 여행가기 좋은 곳 소개, 유티크한 카페 공유 일상힐링 블로그</p>
+                            <hr>
+                            <table class="table table-borderless text-start">
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>주요기능</td>
+                                        <td>모달 리모컨기능</td>
+                                    </tr>
+                                    <tr>
+                                        <td>front_end</td>
+                                        <td>asdgadjksld;fg';lf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>back_end</td>
+                                        <td>asdfasgasdf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>database</td>
+                                        <td>asdfdaqwe</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control text-center mb-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="image/bmn_home.png" alt="" style="max-width: 100%;">
+                        </div>
+                        <div class="col-sm-6">
+                            <p>맛있는 식당과 좋은 경치 여행가기 좋은 곳 소개, 유티크한 카페 공유 일상힐링 블로그</p>
+                            <hr>
+                            <table class="table table-borderless text-start">
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>주요기능</td>
+                                        <td>모달 리모컨기능</td>
+                                    </tr>
+                                    <tr>
+                                        <td>front_end</td>
+                                        <td>asdgadjksld;fg';lf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>back_end</td>
+                                        <td>asdfasgasdf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>database</td>
+                                        <td>asdfdaqwe</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control text-center mb-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="image/pi_home.png" alt="" style="max-width: 100%;">
+                        </div>
+                        <div class="col-sm-6">
+                            <p>맛있는 식당과 좋은 경치 여행가기 좋은 곳 소개, 유티크한 카페 공유 일상힐링 블로그</p>
+                            <hr>
+                            <table class="table table-borderless text-start">
+                                <colgroup>
+                                    <col style="width: 30%;">
+                                    <col style="width: 70%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>주요기능</td>
+                                        <td>모달 리모컨기능</td>
+                                    </tr>
+                                    <tr>
+                                        <td>front_end</td>
+                                        <td>asdgadjksld;fg';lf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>back_end</td>
+                                        <td>asdfasgasdf</td>
+                                    </tr>
+                                    <tr>
+                                        <td>database</td>
+                                        <td>asdfdaqwe</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Career -->
         <!-- 컨택트 -->
