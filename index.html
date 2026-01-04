@@ -1,492 +1,1252 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>이지원 웹 포트폴리오 사이트</title>
-    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
-        .hover:hover {
-            border: 3px solid gray;
-            transform: translateY(0.5em);
-            transition: all 0.3s;
-        }
-        .hover2:hover {
-            background-color: rgb(230, 230, 230);
-            border-radius: 0.5em;
-            transition: all 0.3s;
-        }
+      html {
+        scroll-behavior: smooth;
+      }
+      .hover:hover {
+        border: 3px solid gray;
+        transform: translateY(0.5em);
+        transition: all 0.3s;
+      }
     </style>
     <script>
-        function openPdfFile() {
-            // 한글 파일의 경로를 지정합니다.
-            const koreanFileUrl = 'pdf/이력서-이지원_페이지.pdf';
-            
-            // 새 창에서 한글 파일을 엽니다.
-            window.open(koreanFileUrl, '_blank');
+      function openPdfFile() {
+        const pdfFileUrl =
+          "pdf/프론트엔드 개발자 이력서_이지원.pdf";
+
+        window.open(pdfFileUrl, "_blank");
+      }
+
+      $(document).ready(function () {
+        // 부드러운 스크롤 함수
+        function smoothScrollTo(target) {
+          const navbarHeight = $(".navbar").outerHeight() || 64; // navbar 높이 (기본값 64px)
+          const targetElement = $(target);
+
+          if (targetElement.length) {
+            const targetPosition = targetElement.offset().top - navbarHeight;
+
+            // 즉시 스크롤 시작 (CSS scroll-behavior: smooth 활용)
+            window.scrollTo({
+              top: targetPosition,
+              behavior: "smooth",
+            });
+          }
         }
 
-        $(document).ready(function() {
-            const navbarBlack =
-            "<div class=\"container-sm\">\n" +
-                "<a href=\"#\" class=\"navbar-brand me-auto text-black\"><b>Ji-Won's Portfolio</b></a>\n" +
-                "<a href=\"#about-me\" class=\"me-4 pe-2 text-decoration-none text-black\">About me</a>\n" + 
-                "<a href=\"#skill\" class=\"me-4 pe-2 text-decoration-none text-black\">Skill</a>\n" +
-                "<a href=\"#archiving\" class=\"me-4 pe-2 text-decoration-none text-black\">Archiving</a>\n" +
-                "<a href=\"#project\" class=\"me-4 pe-2 text-decoration-none text-black\">Project</a>\n" +
-                "<a href=\"#contact\" class=\"text-decoration-none text-black\">Contact</a>\n" +
-            "</div>";
-            const navbarWhite =
-            "<div class=\"container-sm\">\n" +
-                "<a href=\"#\" class=\"navbar-brand me-auto text-white\"><b>Ji-Won's Portfolio</b></a>\n" +
-                "<a href=\"#about-me\" class=\"me-4 pe-2 text-decoration-none text-white\">About me</a>\n" + 
-                "<a href=\"#skill\" class=\"me-4 pe-2 text-decoration-none text-white\">Skill</a>\n" +
-                "<a href=\"#archiving\" class=\"me-4 pe-2 text-decoration-none text-white\">Archiving</a>\n" +
-                "<a href=\"#project\" class=\"me-4 pe-2 text-decoration-none text-white\">Project</a>\n" +
-                "<a href=\"#contact\" class=\"text-decoration-none text-white\">Contact</a>\n" +
-            "</div>";
-            $(window).on("scroll", function() {
-                if ($(this).scrollTop() > 50) {
-                    $(".navbar").empty();
-                    $(".navbar").removeClass("bg-secondary bg-opacity-25");
-                    $(".navbar").addClass("bg-white shadow");
-                    $(".navbar").append(navbarBlack);
-                }
-                else {
-                    $(".navbar").empty();
-                    $(".navbar").removeClass("bg-white shadow");
-                    $(".navbar").addClass("bg-secondary bg-opacity-25");
-                    $(".navbar").append(navbarWhite);
-                }
-            });
+        // 모든 네비게이션 링크에 부드러운 스크롤 적용
+        $('a[href^="#"]').on("click", function (e) {
+          const href = $(this).attr("href");
+
+          // 빈 해시나 #만 있는 경우는 제외
+          if (href !== "#" && href.length > 1) {
+            e.preventDefault();
+            smoothScrollTo(href);
+
+            // 모바일 메뉴 닫기
+            $(".mobile-menu").addClass("hidden");
+            $(".mobile-menu-button svg").first().removeClass("hidden");
+            $(".mobile-menu-button svg").last().addClass("hidden");
+          }
         });
+
+        // 햄버거 메뉴 토글
+        $(".mobile-menu-button").on("click", function () {
+          $(".mobile-menu").toggleClass("hidden");
+          $(this).find("svg").toggleClass("hidden");
+        });
+
+        // 스크롤 시 네비게이션 스타일 변경
+        $(window).on("scroll", function () {
+          if ($(this).scrollTop() > 50) {
+            $(".navbar").removeClass("bg-gray-600 bg-opacity-25");
+            $(".navbar").addClass("bg-white shadow-md");
+            $(".navbar .navbar-brand")
+              .removeClass("text-white")
+              .addClass("text-black");
+            $(".navbar .desktop-menu a")
+              .removeClass("text-white")
+              .addClass("text-black");
+            $(".navbar .mobile-menu-button svg")
+              .removeClass("text-white")
+              .addClass("text-black");
+            $(".navbar .mobile-menu")
+              .removeClass("bg-white")
+              .addClass("bg-white");
+          } else {
+            $(".navbar").removeClass("bg-white shadow-md");
+            $(".navbar").addClass("bg-gray-600 bg-opacity-25");
+            $(".navbar .navbar-brand")
+              .removeClass("text-black")
+              .addClass("text-white");
+            $(".navbar .desktop-menu a")
+              .removeClass("text-black")
+              .addClass("text-white");
+            $(".navbar .mobile-menu-button svg")
+              .removeClass("text-black")
+              .addClass("text-white");
+          }
+        });
+
+        // 프로젝트별 이미지 배열
+        const projectImages = {
+          clone: ["image/clone_home.png"],
+          tastyblog: ["image/jsp_home.png"],
+          bmn: ["image/bmn_home.png"],
+          projectInside: ["image/pi_home.png"],
+        };
+
+        let currentImageIndex = 0;
+        let currentProjectImages = [];
+
+        // 이미지 모달 열기
+        function openImageModal(projectId) {
+          currentProjectImages = projectImages[projectId] || [];
+          currentImageIndex = 0;
+          updateModalImage();
+          $("#imageModal").removeClass("hidden");
+          $("body").addClass("overflow-hidden");
+        }
+
+        // 이미지 모달 닫기
+        function closeImageModal() {
+          $("#imageModal").addClass("hidden");
+          $("body").removeClass("overflow-hidden");
+        }
+
+        // 모달 이미지 업데이트
+        function updateModalImage() {
+          if (currentProjectImages.length === 0) return;
+          $("#modalImage").attr("src", currentProjectImages[currentImageIndex]);
+          $("#imageCounter").text(
+            `${currentImageIndex + 1} / ${currentProjectImages.length}`
+          );
+          $("#prevImageBtn").toggleClass(
+            "opacity-50 cursor-not-allowed",
+            currentImageIndex === 0
+          );
+          $("#nextImageBtn").toggleClass(
+            "opacity-50 cursor-not-allowed",
+            currentImageIndex === currentProjectImages.length - 1
+          );
+        }
+
+        // 이전 이미지
+        function prevImage() {
+          if (currentImageIndex > 0) {
+            currentImageIndex--;
+            updateModalImage();
+          }
+        }
+
+        // 다음 이미지
+        function nextImage() {
+          if (currentImageIndex < currentProjectImages.length - 1) {
+            currentImageIndex++;
+            updateModalImage();
+          }
+        }
+
+        // 이미지 버튼 클릭 이벤트
+        $(".image-btn").on("click", function (e) {
+          e.preventDefault();
+          const projectId = $(this).data("project-id");
+          openImageModal(projectId);
+        });
+
+        // 모달 닫기 버튼
+        $(".close-modal").on("click", closeImageModal);
+
+        // 이전/다음 버튼
+        $("#prevImageBtn").on("click", prevImage);
+        $("#nextImageBtn").on("click", nextImage);
+
+        // ESC 키로 모달 닫기
+        $(document).on("keydown", function (e) {
+          if (e.key === "Escape" && !$("#imageModal").hasClass("hidden")) {
+            closeImageModal();
+          }
+        });
+
+        // 모달 배경 클릭 시 닫기
+        $("#imageModal").on("click", function (e) {
+          if ($(e.target).attr("id") === "imageModal") {
+            closeImageModal();
+          }
+        });
+      });
     </script>
-</head>
-<body>
-    <header style="background-image: url('image/code_img.jpg');">
-        <nav class="navbar bg-body-tertiary text-balck bg-secondary bg-opacity-25 w-100 fixed-top">
-            <div class="container-sm">
-                <a href="#" class="navbar-brand me-auto text-white"><b>Ji-Won's Portfolio</b></a>
-                <!-- <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
-                <a href="#about-me" class="me-4 pe-2 text-decoration-none text-white">About me</a>
-                <a href="#skill" class="me-4 pe-2 text-decoration-none text-white">Skill</a>
-                <a href="#archiving" class="me-4 pe-2 text-decoration-none text-white">Archiving</a>
-                <a href="#project" class="me-4 pe-2 text-decoration-none text-white">Project</a>
-                <a href="#contact" class="text-decoration-none text-white">Contact</a>
-            </div>
-        </nav>
-        <!-- Home -->
-        <div class="text-center text-white p-5">
-            <h1 class="mb-5 pt-5 my-2"><b>풀스택 개발자를 꿈꾸는 이지원 입니다.</b></h1>
-            <p>안녕하세요. 저 이지원은</p>
-            <p>접해보지 못한 새로운 것을 즐깁니다.</p>
-            <p>새로움에 도전하는 것을 두려워하지 않습니다.</p>
-            <p>강한 책임감을 바탕으로 제 의무를 포기하지 않습니다.</p>
+  </head>
+  <body>
+    <header
+      class="bg-cover bg-center bg-no-repeat"
+      style="background-image: url('image/code_img.jpg')"
+    >
+      <nav
+        class="navbar flex items-center justify-between bg-gray-600 bg-opacity-25 w-full fixed top-0 z-50 py-4"
+      >
+        <div
+          class="container mx-auto px-4 flex items-center justify-between w-full"
+        >
+          <a href="#" class="navbar-brand text-white font-bold text-xl"
+            >Ji-Won's Portfolio</a
+          >
+          <!-- Desktop Menu -->
+          <div class="desktop-menu hidden md:flex items-center space-x-6">
+            <a
+              href="#about-me"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >About me</a
+            >
+            <a
+              href="#skill"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >Skill</a
+            >
+            <a
+              href="#archiving"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >Archiving</a
+            >
+            <a
+              href="#project"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >Project</a
+            >
+            <a
+              href="#career"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >Career</a
+            >
+            <a
+              href="#contact"
+              class="no-underline text-white hover:text-orange-500 transition"
+              >Contact</a
+            >
+          </div>
+          <!-- Mobile Menu Button -->
+          <button
+            class="mobile-menu-button md:hidden text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <!-- Hamburger Icon -->
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+            <!-- Close Icon -->
+            <svg
+              class="w-6 h-6 hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
         </div>
+        <!-- Mobile Menu -->
+        <div
+          class="mobile-menu hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg"
+        >
+          <div class="flex flex-col">
+            <a
+              href="#about-me"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >About me</a
+            >
+            <a
+              href="#skill"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >Skill</a
+            >
+            <a
+              href="#archiving"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >Archiving</a
+            >
+            <a
+              href="#project"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >Project</a
+            >
+            <a
+              href="#career"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >Career</a
+            >
+            <a
+              href="#contact"
+              class="px-4 py-3 text-gray-800 hover:bg-orange-50 hover:text-orange-500 transition no-underline"
+              >Contact</a
+            >
+          </div>
+        </div>
+      </nav>
+      <!-- Home -->
+      <div
+        class="text-center text-white p-6 py-20 flex flex-col justify-center items-center"
+      >
+        <p class="text-4xl md:text-6xl mb-4 font-medium">- 이지원 -</p>
+        <h1 class="mb-6 pt-4 text-4xl md:text-6xl font-bold">
+          프론트엔드 개발자 포트폴리오
+        </h1>
+        <div class="w-16 h-0.5 bg-orange-500 mx-auto mb-6"></div>
+        <p class="text-lg md:text-xl mb-2">안녕하세요.</p>
+        <p class="text-lg md:text-xl mb-4">
+          문제 해결 능력을 갖춘 프론트엔드 개발자
+        </p>
+        <p class="text-base md:text-lg">이지원입니다.</p>
+      </div>
     </header>
     <main>
-        <!-- About me -->
-        <div class="container-sm mx-auto row p-4" id="about-me">
-            <h2 class="text-center p-4 mb-3"><i class="bi bi-pin-angle me-3"></i><b class="border-bottom border-dark">About me</b></h2>
-            <div class="col-sm-3 mx-auto">
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-person-fill fs-1 align-middle"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>이름</b></p>
-                        <p class="m-0">이지원</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-telephone-fill fs-1"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>연락처</b></p>
-                        <p class="m-0">010-9382-5542</p>
-                    </div>
-                </div>
+      <!-- About me -->
+      <div class="px-6 py-6" id="about-me">
+        <h2 class="text-center py-6 mb-4 text-4xl font-bold">
+          <svg
+            class="inline-block w-6 h-6 mr-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+            ></path>
+          </svg>
+          <span class="border-b-2 border-gray-800">About me</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto">
+          <div class="px-8 flex flex-col">
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">이름</p>
+                <p class="m-0 text-gray-600">이지원</p>
+              </div>
             </div>
-            <div class="col-sm-3 mx-0">
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-calendar-heart-fill fs-1"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>생년월일</b></p>
-                        <p class="m-0">96.10.23</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-envelope-fill fs-1"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>이메일</b></p>
-                        <p class="m-0">god998877@naver.com</p>
-                    </div>
-                </div>
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">연락처</p>
+                <p class="m-0 text-gray-600">010-9382-5542</p>
+              </div>
             </div>
-            <div class="col-sm-3 mx-auto">
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-geo-alt-fill fs-1"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>주소지</b></p>
-                        <p class="m-0">울산광역시 울주군</p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start align-items-center mb-3 hover2">
-                    <i class="bi bi-pencil-fill fs-1"></i>
-                    <div class="ms-4">
-                        <p class="m-0"><b>학력</b></p>
-                        <p class="m-0">범서고등학교</p>
-                    </div>
-                </div>
+          </div>
+          <div class="px-8 flex flex-col">
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">생년월일</p>
+                <p class="m-0 text-gray-600">96.10.23</p>
+              </div>
             </div>
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"
+                ></path>
+                <path
+                  d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
+                ></path>
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">이메일</p>
+                <p class="m-0 text-gray-600">god998877@naver.com</p>
+              </div>
+            </div>
+          </div>
+          <div class="px-8 flex flex-col">
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.96-2.048c3.884-3.888 3.884-10.194 0-14.082a19.58 19.58 0 00-2.96-2.048A16.975 16.975 0 0012 2.25a16.975 16.975 0 00-1.144.742 19.58 19.58 0 00-2.96 2.048c-3.884 3.888-3.884 10.194 0 14.082a19.58 19.58 0 002.96 2.048 16.975 16.975 0 001.144.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">주소지</p>
+                <p class="m-0 text-gray-600">울산광역시 울주군</p>
+              </div>
+            </div>
+            <div class="flex items-center p-4 rounded-lg mb-6">
+              <svg
+                class="w-12 h-12 text-gray-700 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z"
+                ></path>
+                <path
+                  d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"
+                ></path>
+              </svg>
+              <div class="ml-4">
+                <p class="m-0 font-bold text-gray-800">학력</p>
+                <p class="m-0 text-gray-600">범서고등학교</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Skill -->
-        <div style="background-color: #FFDC3C;">
-            <div class="container-sm mx-auto row p-4" id="skill">
-                <h2 class="text-center p-4 mb-3"><i class="bi bi-gear-wide-connected me-3"></i><b class="border-bottom border-dark">Skill</b></h2>
-                <div class="col-sm-3 mx-auto">
-                    <div class="card hover shadow mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title text-center"><b>Frontend</b></h4>
-                            <hr>
-                            <img src="image/front_end.png" alt="" class="mx-auto" style="max-width: 100%;">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 mx-0">
-                    <div class="card hover shadow mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title text-center"><b>Backend</b></h4>
-                            <hr>
-                            <img src="image/back_end.png" alt="" class="mx-auto" style="max-width: 100%;">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3 mx-auto">
-                    <div class="card hover shadow mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title text-center"><b>Database</b></h4>
-                            <hr>
-                            <img src="image/database.png" alt="" class="mx-auto" style="max-width: 100%;">
-                        </div>
-                    </div>
-                    <div class="card hover shadow mb-4">
-                        <div class="card-body">
-                            <h4 class="card-title text-center"><b>VersionControl</b></h4>
-                            <hr>
-                            <img src="image/version_control.png" alt="" class="mx-auto" style="max-width: 100%;">
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <!-- Skill -->
+      <div class="bg-yellow-300">
+        <div class="px-6 py-6" id="skill">
+          <h2 class="text-center py-6 mb-4 text-4xl font-bold">
+            <svg
+              class="inline-block w-6 h-6 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.87l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.87l.214-1.281z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+            </svg>
+            <span class="border-b-2 border-gray-800">Skill</span>
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
+            <div class="mx-auto">
+              <div class="bg-white rounded-lg hover shadow-lg mb-6 p-6">
+                <h4 class="text-center font-bold text-xl mb-4">Frontend</h4>
+                <hr class="mb-4" />
+                <img
+                  src="image/front_end.png"
+                  alt=""
+                  class="mx-auto max-w-full"
+                />
+              </div>
             </div>
+            <div class="mx-0">
+              <div class="bg-white rounded-lg hover shadow-lg mb-6 p-6">
+                <h4 class="text-center font-bold text-xl mb-4">Backend</h4>
+                <hr class="mb-4" />
+                <img
+                  src="image/back_end.png"
+                  alt=""
+                  class="mx-auto max-w-full"
+                />
+              </div>
+            </div>
+            <div class="mx-auto">
+              <div class="bg-white rounded-lg hover shadow-lg mb-6 p-6">
+                <h4 class="text-center font-bold text-xl mb-4">Database</h4>
+                <hr class="mb-4" />
+                <img
+                  src="image/database.png"
+                  alt=""
+                  class="mx-auto max-w-full"
+                />
+              </div>
+              <div class="bg-white rounded-lg hover shadow-lg mb-6 p-6">
+                <h4 class="text-center font-bold text-xl mb-4">
+                  VersionControl
+                </h4>
+                <hr class="mb-4" />
+                <img
+                  src="image/version_control.png"
+                  alt=""
+                  class="mx-auto max-w-full"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Archiving -->
-        <div style="background-color: #282828;">
-            <div class="container-sm mx-auto row p-4" id="archiving">
-                <h2 class="text-center text-white p-4 mb-3"><i class="bi bi-database me-3" style="color: white;"></i><b class="border-bottom border-white">Archiving</b></h2>
-                <div class="col-sm-4 mx-auto">
-                    <div class="card hover mb-4">
-                        <div class="card-body">
-                            <h3 class="card-title mb-3"><b><i class="bi bi-github"></i> GitHub</b></h3>
-                            <p class="card-text"><a href="https://github.com/ezjing" class="text-decoration-none">github.com/ezjing</a></p>
-                            <p class="card-text"><b>소스 코드 저장소</b>입니다.</p>
-                            <ul class="card-text">
-                                <li>과거 프로젝트, 프로그램, 앱의 소스 코드</li>
-                                <li>혼자서 코딩 연습을 위해 끄적이던 소스 코드</li>
-                                <li>학원에서 수강한 수업의 코딩 과제 소스 코드</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <!-- Archiving -->
+      <div class="bg-gray-800">
+        <div class="px-6 py-6" id="archiving">
+          <h2 class="text-center text-white py-6 m4-4 text-2xl font-bold">
+            <svg
+              class="inline-block w-6 h-6 mr-3 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+              ></path>
+            </svg>
+            <span class="border-b-2 border-white">Archiving</span>
+          </h2>
+          <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-lg hover mb-6 p-6">
+              <h3 class="mb-4 text-xl font-bold flex items-center">
+                <svg
+                  class="w-6 h-6 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.477 2 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 6.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-5.523-4.477-10-10-10z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                GitHub
+              </h3>
+              <p class="mb-2">
+                <a
+                  href="https://github.com/ezjing"
+                  class="no-underline text-blue-600 hover:text-blue-800"
+                  >github.com/ezjing</a
+                >
+              </p>
+              <p class="mb-2 font-bold">소스 코드 저장소입니다.</p>
+              <ul class="list-disc list-inside">
+                <li>과거 프로젝트, 프로그램, 앱의 소스 코드</li>
+                <li>혼자서 코딩 연습을 위해 끄적이던 소스 코드</li>
+                <li>학원에서 수강한 수업의 코딩 과제 소스 코드</li>
+              </ul>
             </div>
+          </div>
         </div>
-        <!-- Project -->
-        <div style="background-color: #87CEFA;">
-            <div class="container-sm mx-auto row p-4" id="project">
-                <h2 class="text-center p-4 mb-3"><i class="bi bi-laptop me-3"></i><b class="border-bottom border-dark">Project</b></h2>
-                <div class="col-11 mx-auto">
-                    <div class="form-control shadow text-center p-5 mb-4">
-                        <h4><b>베스킨라빈스 클론 코딩</b></h4>
-                        <p class="text-secondary my-4">2023.03.22 (개인 프로젝트)</p>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img src="image/clone_home.png" alt="" style="max-width: 100%;">
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-start"> 베스킨라빈스 홈페이지를 클론코딩한 웹페이지입니다. html, css, bootstrap를 사용하여 개발하였습니다. </p>
-                                <p class="text-start">html 태그, css 스타일, bootstrap 라이브러리의 사용법을 학습하기 위해 제작하게 되었습니다.</p>
-                                <p class="text-start">a 태그, select 태그 등을 사용하여 해당 이벤트를 사용해 보았으며 img 태그, i 태그를 사용하여 최대한 비슷하게 구성하였습니다.</p>
-                                <p class="text-start">그리드의 개념을 확실히 숙지하게 되었으며 원하는 위치에 원하는 모양으로 태그를 배치할수 있게 되었습니다.</p>
-                                <p class="text-start">첫 웹페이지를 개발해 보았습니다. 직접 만든 웹페이지가 신기하게 다가왔으며, 더 다양하고 실용적인 이벤트를 사용하여 실제 서비스 하는 웹페이지를 만들고 싶다는 목표가 생기게 되었습니다. 이후 개발하는 프로젝트에 실제로 사용할 만한 기능을 하나씩 넣게 되었는데 그 출발점이 되었다고 생각합니다.</p>
-                                <hr>
-                                <table class="table table-borderless text-start">
-                                    <colgroup>
-                                        <col style="width: 30%;">
-                                        <col style="width: 70%;">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>컨셉, 아이디어</td>
-                                            <td>
-                                                <ul class="ps-2">
-                                                    <li>HTML, CSS, Bootstrap을 이용하여 베스킨 라빈스 홈페이지 클론코딩</li>
-                                                    <li>a태그를 이용하여 contact us 페이지로 이동</li>
-                                                    <li>그리드 기능을 이용하여 화면 정렬</li>
-                                                    <li>Bootstrap의 캐러셀 기능 이용하여 이미지 슬라이드 기능 구현</li>
-                                                    <li>이미지, 아이콘 등을 사용하여 최대한 비슷하게 꾸미기</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>GitHub</td>
-                                            <td><a href="https://github.com/ezjing/bootstrap/tree/master/UI구현_이지원" class="text-decoration-none">github.com/ezjing/bootstrap/tree/master/UI구현_이지원</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Frontend</td>
-                                            <td>HTML, CSS, Bootstrap</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Backend</td>
-                                            <td>-</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Database</td>
-                                            <td>-</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control shadow text-center p-5 mb-4">
-                        <h4><b>TastyBlog</b></h4>
-                        <p class="text-secondary my-4">2023.05.24 ~ 2023.05.31 (개인 프로젝트)</p>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img src="image/jsp_home.png" alt="" style="max-width: 100%;">
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-start">각 지방을 관광지와 맛집을 소개, 취미로 독특한 카페를 찾아다니는 일상공유하기 위한 웹페이지입니다.</p>
-                                <p class="text-start">가까운곳에서 새로움을 찾고싶은 사람, 여행을 좋아하는사람, 맛있는 식당을 찾고싶은 사람, 커피를 좋아하는 사람들에게 관심사를 공유하고 싶어 만들게 되었습니다.</p>
-                                <p class="text-start">각종 블로그, 인스타그램, 싸이월드 방명록 등을 밴치마킹하였으며 여행/맛집, 카페 두가지 테마의 블로그로 구성하였습니다.</p>
-                                <p class="text-start">MySQL을 사용하여 게시물 CRUD구현하였으며 DB개념 및 쿼리문에 대해 알게되었습니다. Springboot를 사용하여 MVC2 패턴으로 프로젝트를 개발하였고 MVC1과 MVC2의 차이점과 MVC2의 유지보수 용이성에 대해 알게되었습니다.</p>
-                                <hr>
-                                <table class="table table-borderless text-start">
-                                    <colgroup>
-                                        <col style="width: 30%;">
-                                        <col style="width: 70%;">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>컨셉, 아이디어</td>
-                                            <td>
-                                                <ul class="ps-2">
-                                                    <li>각 지방을 관광지와 맛집을 소개, 취미로 독특한 카페를 찾아다니는 일상 공유</li>
-                                                    <li>여행,  맛집 테마(일반 블로그 형식), 카페 테마(인스타그램 형식) 포스팅</li>
-                                                    <li>싸이월드 방명록 밴치마킹</li>
-                                                    <li>페이징, 검색, 로그인 시 아이디 저장, 리모컨 기능 등 편의성 제공</li>
-                                                    <li>관리자 계정 구현</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>GitHub</td>
-                                            <td><a href="https://github.com/ezjing/jsp/tree/master/tastyBlog_0531" class="text-decoration-none">github.com/ezjing/jsp/tree/master/tastyBlog_0531</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Frontend</td>
-                                            <td>HTML, CSS, Bootstrap, Javascript(jQuery)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Backend</td>
-                                            <td>Tomcat, Java, JSP, JSTL</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Database</td>
-                                            <td>MySQL</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control shadow text-center p-5 mb-4">
-                        <h4><b>밥뭇나(BMN)</b></h4>
-                        <p class="text-secondary my-4">2023.06.28 ~ 2023.07.13 (4인 팀 프로젝트)</p>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img src="image/bmn_home.png" alt="" style="max-width: 100%;">
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-start"> 식사 메뉴를 고민하는 사람들을 위한 맛집 추천 웹사이트입니다.</p>
-                                <p class="text-start"> 넘쳐나는 허위 정보로 아까운 시간을 낭비할때 해당 웹 사이트를 이용하여 약간의 시간으로 양질의 정보를 제공받을 수 있었으면 하는 마음에 개발하게 되었습니다.</p>
-                                <p class="text-start"> 처음으로 진행하게 된 팀 프로젝트였고 기획단계부터 회의를 진행하여 차근차근 단계를 밟아 개발하게된 웹사이트입니다.</p>
-                                <p class="text-start"> jQuery를 처음으로 실용성 있게 활용하였습니다. child, find등 요소 검색 명령어를 사용하여 원하는 시점에 원하는 태그에 이벤트를 줄 수 있었습니다. Javascript와 jQuery를 통해 동적인 페이지를 만들 수 있단 것을 실감하게 되었습니다.</p>
-                                <p class="text-start"> ajax와 thymeleaf를 사용하여 예약페이지를 개발하였습니다. 비동기 통신으로 실시간 예약정보를 반영하여 화면에 랜더링 되도록 하였습니다. for문과 if문을 활용하여 중복되는 코드사용을 줄였으며 긴 코드를 짧게 줄이는 것이 효율성과 완성도를 높인다는것을 실감하게 되었습니다.</p>
-                                <hr>
-                                <table class="table table-borderless text-start">
-                                    <colgroup>
-                                        <col style="width: 30%;">
-                                        <col style="width: 70%;">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>컨셉, 아이디어</td>
-                                            <td>
-                                                <ul class="ps-2">
-                                                    <li>부산 맛집을 평점, 테마 별 등 으로 보여주며, 추천 및 리뷰 작성이 가능한 웹사이트</li>
-                                                    <li>회원 등급제를 통한 신뢰성 있는 리뷰 및 평점 시스템</li>
-                                                    <li>가게 별 예약 기능</li>
-                                                    <li>나이, 성별, 카테고리 별 필터 + 검색 기능</li>
-                                                    <li>지도, 스마트에디터, 도로명 주소 등 다양한 api 활용</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>GitHub</td>
-                                            <td><a href="https://github.com/ezjing/bmn_project_final" class="text-decoration-none">github.com/ezjing/bmn_project_final</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Frontend</td>
-                                            <td>Bootstrap, Javascript(jQuery), Thymeleaf</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Backend</td>
-                                            <td>Tomcat, Java, Spring Boot, Mybatis</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Database</td>
-                                            <td>MySQL</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control shadow text-center p-5 mb-4">
-                        <h4><b>Project Inside</b></h4>
-                        <p class="text-secondary my-4">2023.07.31 ~ 2023.08.29 (3인 팀 프로젝트)</p>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img src="image/pi_home.png" alt="" style="max-width: 100%;">
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="text-start">개발자에게 중요한 역량인 알고리즘 지식을 쌓기 위한 문제 제공서비스와 팀 단위의 프로젝트를 준비하거나, 참여를 희망하는 개발자들을 위한 매칭 웹사이트입니다.</p>
-                                <p class="text-start">편리한 알고리즘 풀이와 연계되는 프로젝트 팀 형성을 통한 유저의 역량강화와 다양한 경험으로 성장기회를 제공하고 개발자들의 성장 발판이 되고자 개발하였습니다.</p>
-                                <p class="text-start">Node.JS, React 등 새로운 기능을 사용해 보았습니다. 유용한 모듈이 많았으며 수많은 모듈 중 적합한 모듈을 선정하는 과정이 필요했습니다.</p>
-                                <p class="text-start">크롤링을 사용해 보았습니다. 자동으로 원하는 페이지의 정보를 얻어오는 점은 유용하였지만 속도가 느려 실용적이지 못하다는 느낌을 받았습니다. 동일한 기능의 api도 사용했는데 속도가 빠르고 정확하였습니다. 필요한 정보가 특정되어 있는 상황에서는 api가 유용하고 실용적이라는 생각을 하게되었습니다.</p>
-                                <p class="text-start">react 사용 시 너무 많은 비동기가 이뤄지면 안된다고도 느꼈습니다. 로딩되는 순서에 따라서 정보를 못 얻어올 때가 있었기 때문입니다. aync와 await를 사용하여 pomise 객체가 나올때만 다음 통신이 이뤄지도록 순서를 정해주는 방식으로 해결하게 되었습니다. 계획적인 비동기 통신사용의 필요성을 실감하였습니다.</p>
-                                <hr>
-                                <table class="table table-borderless text-start">
-                                    <colgroup>
-                                        <col style="width: 30%;">
-                                        <col style="width: 70%;">
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>컨셉, 아이디어</td>
-                                            <td>
-                                                <ul class="ps-2">
-                                                    <li>개발자들을 위한 자기개발 사이트</li>
-                                                    <li>본인 인증(이메일 인증)을 통한 로그인</li>
-                                                    <li>알고리즘 문제 공부, 실제로 코드가 동작하도록 하기</li>
-                                                    <li>토이 프로젝트 모집, 회원 별 레벨을 부여하여 원하는 수준의 팀원 모집하기</li>
-                                                    <li>채팅, 타이머, 간트 차트 등 다양한 편의성 제공</li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>GitHub</td>
-                                            <td><a href="https://github.com/qazplm12/project_inside" class="text-decoration-none">github.com/qazplm12/project_inside</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Frontend</td>
-                                            <td>Bootstrap, Javascript, React</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Backend</td>
-                                            <td>Tomcat, Java, Spring Boot, Node.JS, JPA, JPQL, JWT</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Database</td>
-                                            <td>MySQL</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+      </div>
+      <!-- Project -->
+      <div class="bg-sky-300">
+        <div class="px-6 py-12" id="project">
+          <h2 class="text-center py-6 mb-8 text-4xl font-bold">
+            <svg
+              class="inline-block w-6 h-6 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"
+              ></path>
+            </svg>
+            <span class="border-b-2 border-gray-800">Project</span>
+          </h2>
+          <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- 프로젝트 카드 1 -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <span
+                  class="inline-block bg-red-500 text-white px-4 py-1 rounded-full text-sm font-semibold mb-3"
+                >
+                  베스킨라빈스 클론 코딩
+                </span>
+                <p class="text-gray-600 text-sm mb-4">
+                  2023.03.22 (개인 프로젝트)
+                </p>
+                <p class="text-gray-800 mb-4">
+                  베스킨라빈스 홈페이지를 클론코딩한 웹페이지입니다. html, css,
+                  bootstrap를 사용하여 개발하였습니다.
+                </p>
+                <ul
+                  class="list-disc list-inside text-gray-700 text-sm mb-4 space-y-1"
+                >
+                  <li>
+                    HTML, CSS, Bootstrap을 이용하여 베스킨 라빈스 홈페이지
+                    클론코딩
+                  </li>
+                  <li>a태그를 이용하여 contact us 페이지로 이동</li>
+                  <li>그리드 기능을 이용하여 화면 정렬</li>
+                  <li>
+                    Bootstrap의 캐러셀 기능 이용하여 이미지 슬라이드 기능 구현
+                  </li>
+                  <li>이미지, 아이콘 등을 사용하여 최대한 비슷하게 꾸미기</li>
+                </ul>
+                <div class="bg-yellow-100 rounded p-3 mb-4">
+                  <p class="text-sm text-gray-800 font-medium">
+                    HTML, CSS, Bootstrap
+                  </p>
                 </div>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/ezjing/bootstrap/tree/master/UI구현_이지원"
+                    target="_blank"
+                    class="flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    README
+                  </a>
+                  <a
+                    href="#"
+                    data-project-id="clone"
+                    class="image-btn flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    이미지
+                  </a>
+                </div>
+              </div>
+              <!-- 프로젝트 카드 2 -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <span
+                  class="inline-block bg-red-500 text-white px-4 py-1 rounded-full text-sm font-semibold mb-3"
+                >
+                  TastyBlog
+                </span>
+                <p class="text-gray-600 text-sm mb-4">
+                  2023.05.24 ~ 2023.05.31 (개인 프로젝트)
+                </p>
+                <p class="text-gray-800 mb-4">
+                  각 지방을 관광지와 맛집을 소개, 취미로 독특한 카페를
+                  찾아다니는 일상공유하기 위한 웹페이지입니다.
+                </p>
+                <ul
+                  class="list-disc list-inside text-gray-700 text-sm mb-4 space-y-1"
+                >
+                  <li>
+                    각 지방을 관광지와 맛집을 소개, 취미로 독특한 카페를
+                    찾아다니는 일상 공유
+                  </li>
+                  <li>
+                    여행, 맛집 테마(일반 블로그 형식), 카페 테마(인스타그램
+                    형식) 포스팅
+                  </li>
+                  <li>싸이월드 방명록 밴치마킹</li>
+                  <li>
+                    페이징, 검색, 로그인 시 아이디 저장, 리모컨 기능 등 편의성
+                    제공
+                  </li>
+                  <li>관리자 계정 구현</li>
+                </ul>
+                <div class="bg-yellow-100 rounded p-3 mb-4">
+                  <p class="text-sm text-gray-800 font-medium">
+                    HTML, CSS, Bootstrap, Javascript(jQuery), Tomcat, Java, JSP,
+                    JSTL, MySQL
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/ezjing/jsp/tree/master/tastyBlog_0531"
+                    target="_blank"
+                    class="flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    README
+                  </a>
+                  <a
+                    href="#"
+                    data-project-id="tastyblog"
+                    class="image-btn flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    이미지
+                  </a>
+                </div>
+              </div>
+              <!-- 프로젝트 카드 3 -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <span
+                  class="inline-block bg-red-500 text-white px-4 py-1 rounded-full text-sm font-semibold mb-3"
+                >
+                  밥뭇나(BMN)
+                </span>
+                <p class="text-gray-600 text-sm mb-4">
+                  2023.06.28 ~ 2023.07.13 (4인 팀 프로젝트)
+                </p>
+                <p class="text-gray-800 mb-4">
+                  식사 메뉴를 고민하는 사람들을 위한 맛집 추천 웹사이트입니다.
+                </p>
+                <ul
+                  class="list-disc list-inside text-gray-700 text-sm mb-4 space-y-1"
+                >
+                  <li>
+                    부산 맛집을 평점, 테마 별 등 으로 보여주며, 추천 및 리뷰
+                    작성이 가능한 웹사이트
+                  </li>
+                  <li>회원 등급제를 통한 신뢰성 있는 리뷰 및 평점 시스템</li>
+                  <li>가게 별 예약 기능</li>
+                  <li>나이, 성별, 카테고리 별 필터 + 검색 기능</li>
+                  <li>지도, 스마트에디터, 도로명 주소 등 다양한 api 활용</li>
+                </ul>
+                <div class="bg-yellow-100 rounded p-3 mb-4">
+                  <p class="text-sm text-gray-800 font-medium">
+                    Bootstrap, Javascript(jQuery), Thymeleaf, Tomcat, Java,
+                    Spring Boot, Mybatis, MySQL
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/ezjing/bmn_project_final"
+                    target="_blank"
+                    class="flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    README
+                  </a>
+                  <a
+                    href="#"
+                    data-project-id="bmn"
+                    class="image-btn flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    이미지
+                  </a>
+                </div>
+              </div>
+              <!-- 프로젝트 카드 4 -->
+              <div class="bg-white rounded-lg shadow-md p-6">
+                <span
+                  class="inline-block bg-red-500 text-white px-4 py-1 rounded-full text-sm font-semibold mb-3"
+                >
+                  Project Inside
+                </span>
+                <p class="text-gray-600 text-sm mb-4">
+                  2023.07.31 ~ 2023.08.29 (3인 팀 프로젝트)
+                </p>
+                <p class="text-gray-800 mb-4">
+                  개발자에게 중요한 역량인 알고리즘 지식을 쌓기 위한 문제
+                  제공서비스와 팀 단위의 프로젝트를 준비하거나, 참여를 희망하는
+                  개발자들을 위한 매칭 웹사이트입니다.
+                </p>
+                <ul
+                  class="list-disc list-inside text-gray-700 text-sm mb-4 space-y-1"
+                >
+                  <li>개발자들을 위한 자기개발 사이트</li>
+                  <li>본인 인증(이메일 인증)을 통한 로그인</li>
+                  <li>알고리즘 문제 공부, 실제로 코드가 동작하도록 하기</li>
+                  <li>
+                    토이 프로젝트 모집, 회원 별 레벨을 부여하여 원하는 수준의
+                    팀원 모집하기
+                  </li>
+                  <li>채팅, 타이머, 간트 차트 등 다양한 편의성 제공</li>
+                </ul>
+                <div class="bg-yellow-100 rounded p-3 mb-4">
+                  <p class="text-sm text-gray-800 font-medium">
+                    Bootstrap, Javascript, React, Tomcat, Java, Spring Boot,
+                    Node.JS, JPA, JPQL, JWT, MySQL
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/qazplm12/project_inside"
+                    target="_blank"
+                    class="flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      ></path>
+                    </svg>
+                    README
+                  </a>
+                  <a
+                    href="#"
+                    data-project-id="projectInside"
+                    class="image-btn flex items-center gap-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm text-gray-700 transition"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                    이미지
+                  </a>
+                </div>
+              </div>
             </div>
-                </div>
-        <!-- Career -->
-        <!-- Contact -->
-        <div style="background-color: rgb(245, 245, 245);">
-            <div class="container-sm p-4" id="contact">
-                <h2 class="text-center p-4 mb-3"><i class="bi bi-link-45deg me-3"></i><b class="border-bottom border-dark">Contact</b></h2>
-                <!-- <div class="container-sm row m-0">
-                    <div class="col-6 mx-auto">
-                        <div class="card shadow mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img src="image/profile.jpg" alt="" class="w-100">
-                                        <p class="text-center m-0 pt-2">이지원 (Ji-Won Lee)</p>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="d-flex align-items-end">
-                                            <p>연락처 : 010-9382-5542</p>
-                                            <p>이메일 : god998877@naver.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="card hover shadow mx-auto mb-4" style="max-width: 50em;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="image/profile.jpg" class="img-fluid rounded-start" alt="">
-                        </div>
-                        <div class="col-md-8 d-flex align-items-start flex-column">
-                            <div class="card-body w-100 mb-auto d-flex flex-column">
-                                <h4 class="card-title"><b>풀스택 개발자를 꿈꾸는 이지원 입니다.</b></h4>
-                                <div class="my-auto">
-                                    <span class="card-text">저는 마지막에 문을 잠그고 나가는 사람입니다.</span><br>
-                                    <span class="card-text">게을러짐 없이 자기개발을 이어나가겠습니다.</span>
-                                    <p class="card-text">강한 책임감을 바탕으로 믿고 맡길수 있는 <b>'풀스택 개발자, 이지원'</b>이 되겠습니다.</p>
-                                </div>
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <button class="btn btn-outline-dark me-auto" onclick="openPdfFile()">이력서 보기</button>
-                                    <p class="card-text text-end"><small class="text-body-secondary">Last updated on 2023.09</small></p>
-                                </div>
-                            </div>
-                            <div class="card-footer w-100">
-                                <span class="me-2">연락처 : 010-9382-5542</span>
-                                <span class="">이메일 : god998877@naver.com</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <!-- Career -->
+      <div class="bg-white">
+        <div class="px-6 py-12" id="career">
+          <h2 class="text-center py-6 mb-8 text-4xl font-bold">
+            <svg
+              class="inline-block w-6 h-6 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            <span class="border-b-2 border-gray-800">Career</span>
+          </h2>
+          <div class="max-w-6xl mx-auto">
+            <div class="space-y-8">
+              <!-- Company Career Card -->
+              <div>
+                <div class="flex flex-col md:flex-row items-start">
+                  <!-- Left: Company Logo -->
+                  <div
+                    class="w-full md:w-auto md:flex-shrink-0 mb-6 md:mb-0 md:pr-12 flex justify-center md:justify-start"
+                  >
+                    <div
+                      class="w-40 h-40 md:w-60 md:h-60 bg-white border border-gray-300 rounded-full flex items-center justify-center"
+                    >
+                      <!-- 회사 로고 영역 (나중에 추가) -->
+                    </div>
+                  </div>
+
+                  <!-- Right: Company Info and Projects -->
+                  <div
+                    class="flex-1 w-full md:pl-12 md:border-l border-gray-300"
+                  >
+                    <!-- Company Name -->
+                    <h3 class="text-2xl font-bold text-gray-800 mb-1">
+                      블루넥스
+                    </h3>
+
+                    <!-- Duration -->
+                    <p class="text-sm text-gray-500 mb-3">
+                      2023.11 - (재직 중)
+                    </p>
+
+                    <!-- Skill Tags -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                      <span
+                        class="px-3 py-1 bg-gray-900 text-white text-xs font-medium rounded-full"
+                      >
+                        Frontend 개발
+                      </span>
+                      <span
+                        class="px-3 py-1 bg-gray-900 text-white text-xs font-medium rounded-full"
+                      >
+                        Backend 개발
+                      </span>
+                    </div>
+
+                    <!-- Projects List -->
+                    <div class="space-y-0">
+                      <!-- Project 2: 세이프온 안전관리 솔루션 개발 -->
+                      <div class="relative pl-6 pb-0">
+                        <div
+                          class="absolute left-0 top-0 w-1 h-6 bg-gray-900"
+                        ></div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-1">
+                          세이프온 안전관리 솔루션 개발
+                        </h4>
+                        <p class="text-sm text-gray-500 mb-2">
+                          2024.04~2026.01 (약 21개월)
+                        </p>
+                        <p class="text-sm text-gray-700">
+                          웹, 앱(PWA) 화면 개발. 각 화면 로직 및 api 개발.
+                          Capacitor 앱 개발. 네이티브 앱 커스텀 플러그인 개발.
+                          푸시알림 이벤트 개발. 레포트 작성. 웹소켓 서버 개발.
+                          (Frontend, Backend)
+                        </p>
+                      </div>
+
+                      <!-- Divider -->
+                      <div class="border-[0.5px] border-gray-200 !my-6"></div>
+
+                      <!-- Project 1: 태영산업 ERP 개발 -->
+                      <div class="relative pl-6">
+                        <div
+                          class="absolute left-0 top-0 w-1 h-6 bg-gray-900"
+                        ></div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-1">
+                          태영산업 ERP 개발
+                        </h4>
+                        <p class="text-sm text-gray-500 mb-2">
+                          2023.11~2024.04 (약 6개월)
+                        </p>
+                        <p class="text-sm text-gray-700">
+                          인사관리, 품질관리 모듈의 개발. 화면 구현. 레포트 작성
+                          (Frontend, Backend)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Contact -->
+      <div class="bg-gray-100">
+        <div class="px-6 py-6" id="contact">
+          <h2 class="text-center py-6 mb-4 text-4xl font-bold">
+            <svg
+              class="inline-block w-6 h-6 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+              ></path>
+            </svg>
+            <span class="border-b-2 border-gray-800">Contact</span>
+          </h2>
+          <div
+            class="bg-white rounded-lg hover shadow-lg mx-auto mb-6 max-w-6xl"
+          >
+            <div class="flex flex-col md:flex-row">
+              <div class="md:w-1/3">
+                <img
+                  src="image/profile.jpg"
+                  class="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
+                  alt=""
+                />
+              </div>
+              <div class="md:w-2/3 flex flex-col">
+                <div class="p-6 flex flex-col flex-grow">
+                  <h4 class="text-xl font-bold mb-4">
+                    프론트엔드 개발자 이지원 입니다.
+                  </h4>
+                  <div class="flex-grow my-4">
+                    <span class="block mb-2"
+                      >저는 마지막에 문을 잠그고 나가는 사람입니다.</span
+                    >
+                    <span class="block mb-2"
+                      >게을러짐 없이 자기개발을 이어나가겠습니다.</span
+                    >
+                    <p class="mt-2">
+                      강한 책임감을 바탕으로 믿고 맡길수 있는
+                      <span class="font-bold">'프론트엔드 개발자, 이지원'</span
+                      >이 되겠습니다.
+                    </p>
+                  </div>
+                  <div class="flex justify-between items-center mt-auto">
+                    <button
+                      class="px-4 py-2 border-2 border-gray-800 rounded hover:bg-gray-800 hover:text-white transition"
+                      onclick="openPdfFile()"
+                    >
+                      이력서 보기
+                    </button>
+                    <p class="text-sm text-gray-500 text-right">
+                      Last updated on 2026.01
+                    </p>
+                  </div>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200">
+                  <span class="mr-4">연락처 : 010-9382-5542</span>
+                  <span>이메일 : god998877@naver.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <footer>
-        <div style="background-color: #282828;">
-            <div class="container-sm text-center p-4">
-                <h1 class="pt-4 pb-2">
-                    <a href="https://github.com/ezjing" class="text-decoration-none mx-2"><i class="bi bi-github" style="color: white;"></i></a>
-                    <a href="" class="text-decoration-none mx-2"><i class="bi bi-instagram" style="color: white;"></i></a>
-                    <a href="" class="text-decoration-none mx-2"><i class="bi bi-facebook" style="color: white;"></i></a>
-                </h1>
-                <p class="text-white">© 2023. Ji-Won Lee. All rights reserved.</p>
-            </div>
+      <div class="bg-gray-800">
+        <div class="container mx-auto px-4 text-center py-6">
+          <div class="pt-4 pb-2 flex justify-center items-center space-x-4">
+            <a
+              href="https://github.com/ezjing"
+              class="text-white hover:opacity-80 transition"
+              target="_blank"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.477 2 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 6.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-5.523-4.477-10-10-10z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+            <a href="" class="text-white hover:opacity-80 transition">
+              <svg
+                class="w-8 h-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+            <a href="" class="text-white hover:opacity-80 transition">
+              <svg
+                class="w-8 h-8"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </a>
+          </div>
+          <p class="text-white mt-4">
+            © 2023. Ji-Won Lee. All rights reserved.
+          </p>
         </div>
+      </div>
     </footer>
-</body>
+    <!-- Image Modal -->
+    <div
+      id="imageModal"
+      class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+    >
+      <div
+        class="relative bg-white rounded-lg max-w-4xl max-h-[90vh] w-full mx-4"
+      >
+        <!-- Close Button -->
+        <button
+          class="close-modal absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-700 transition"
+          aria-label="Close"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+        <!-- Image Container -->
+        <div class="relative p-4">
+          <div
+            class="relative flex items-center justify-center bg-gray-100 rounded-lg min-h-[400px]"
+          >
+            <img
+              id="modalImage"
+              src=""
+              alt="Project Image"
+              class="max-w-full max-h-[70vh] object-contain rounded-lg"
+            />
+            <!-- Navigation Buttons -->
+            <button
+              id="prevImageBtn"
+              class="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Previous Image"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                ></path>
+              </svg>
+            </button>
+            <button
+              id="nextImageBtn"
+              class="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Next Image"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Image Counter -->
+          <div class="text-center mt-4">
+            <span id="imageCounter" class="text-gray-600 text-sm">1 / 1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
